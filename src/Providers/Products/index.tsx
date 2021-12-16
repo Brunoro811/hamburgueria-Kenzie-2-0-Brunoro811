@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { baseURL, defaultProductsArray } from "../BaseURL";
+import { baseURL } from "../BaseURL";
 
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -47,12 +47,6 @@ export const ProductProvider = ({ children }: UsersProps) => {
   const [products, setProducts] = useState<ProductData[]>([]);
   const [cartProducts, setCartproducts] = useState<NewProductProps[]>([]);
   const [total, setTotal] = useState(0);
-  /*const Authorization = {
-    headers: {
-      "Content-type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("@kenzie_burguer")}`,
-    },
-  };*/
   const countTotal = () => {
     setTotal(
       cartProducts.reduce((acc, value) => acc + value.price * value.quantity, 0)
@@ -103,24 +97,6 @@ export const ProductProvider = ({ children }: UsersProps) => {
         toast.error("Erro ao tentar cadastrar default user");
       });
   };
-  const defaultPRoducts = () => {
-    defaultProductsArray.map((element, index) => {
-      return axios
-        .post(`${baseURL}/products`, element, {
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("@fakeApi:token")}`,
-          },
-        })
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((err) => {
-          toast.error(err.response);
-          toast.error("Por favor contate o suporte!");
-        });
-    });
-  };
   const clearCart = () => {
     setCartproducts([]);
   };
@@ -128,12 +104,6 @@ export const ProductProvider = ({ children }: UsersProps) => {
     axios
       .get(`${baseURL}${"/products"}`)
       .then((response) => {
-        if (!response.data[0]) {
-          defaultUser();
-          setTimeout(function () {
-            defaultPRoducts();
-          }, 3000);
-        }
         setProducts(response.data);
       })
       .catch((err) => {
