@@ -78,25 +78,6 @@ export const ProductProvider = ({ children }: UsersProps) => {
       toast.success("Sucesso ao adicionado ao carrinho!");
     }
   };
-  const defaultUser = () => {
-    const body = {
-      email: "kenzinho@mail.com",
-      password: "123456",
-      name: "Kenzinho",
-      age: 38,
-      id: 1,
-    };
-    axios
-      .post(`${baseURL}${"/users"}`, body)
-      .then((response) => {
-        console.log(response.data);
-        localStorage.setItem("@fakeApi:token", response.data.accessToken);
-      })
-      .catch((err) => {
-        toast.error(err.response.data);
-        toast.error("Erro ao tentar cadastrar default user");
-      });
-  };
   const clearCart = () => {
     setCartproducts([]);
   };
