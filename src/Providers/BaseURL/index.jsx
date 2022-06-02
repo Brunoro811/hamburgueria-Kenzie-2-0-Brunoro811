@@ -1,4 +1,4 @@
-export const baseURL = "https://api-type-kenzie-burguer-3.herokuapp.com";
+export const baseURL = "https://api-hemburgueria-json-server.herokuapp.com";
 export const defaultProductsArray = [
     {
       "name": "X-Burguer",
